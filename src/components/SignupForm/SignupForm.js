@@ -32,17 +32,18 @@ const SignupForm = (props) => {
         email: userInfo.email,
         password: userInfo.password,
       })
-      .then((res) => {
+      .then(async (res) => {
         console.log("RES ", res);
         if (res.data) {
           console.log("Successful signup");
-          props.history.push("/login");
+          await props.updateUser(res.data);
+          await props.history.push("/login");
         } else {
           console.log("Signup error");
         }
       })
       .catch((err) => {
-        console.log("Signup server error ", err.response);
+        console.log("Signup server error ", err);
       });
   };
 
@@ -60,9 +61,6 @@ const SignupForm = (props) => {
             value={userInfo.email}
             onChange={handleChange}
             placeholder="john_doe@genre.io"
-            style={{
-              backgroundColor: userInfo.email ? "#f2f4f3" : "#f5f1d0",
-            }}
           />
         </div>
         <div>
@@ -75,9 +73,6 @@ const SignupForm = (props) => {
             value={userInfo.username}
             onChange={handleChange}
             placeholder="newuser1212"
-            style={{
-              backgroundColor: userInfo.username ? "#f2f4f3" : "#f5f1d0",
-            }}
           />
         </div>
         <div>
@@ -89,9 +84,6 @@ const SignupForm = (props) => {
             name="password"
             value={userInfo.password}
             onChange={handleChange}
-            style={{
-              backgroundColor: userInfo.password ? "#f2f4f3" : "#f5f1d0",
-            }}
           />
         </div>
         <div className="submit-btn">
@@ -109,10 +101,10 @@ const SignupForm = (props) => {
           <h4>Login</h4>
         </Link>
       </div>
-      <style jsx>
+      <style jsx global>
         {`
           .login-form {
-            background-color: #91cff0;
+            background-color: #f5f1d0;
             width: 38%;
             margin: 0 auto;
             border-radius: 5px;
@@ -121,7 +113,6 @@ const SignupForm = (props) => {
             justify-content: center;
             align-items: center;
           }
-
           .user-conf {
             opacity: 0.7;
           }
@@ -131,24 +122,13 @@ const SignupForm = (props) => {
             border: none;
             border-radius: 5px;
             padding-left: 1rem;
-            background-color: #f5f1d0;
+            background-color: rgba(7, 26, 36);
+            color: #f5f1d0;
             font-weight: bold;
             font-size: 0.9rem;
           }
           input:focus {
             outline: none;
-          }
-          .submit-btn {
-            text-align: center;
-            margin-top: 2rem;
-          }
-          .submit-btn > input {
-            background-color: #f2f4f3;
-          }
-          .submit-btn > input:hover {
-            background-color: #071a24;
-            color: #f5f1d0;
-            cursor: pointer;
           }
           .signup-nav {
             display: flex;
@@ -159,6 +139,18 @@ const SignupForm = (props) => {
           }
           .dark {
             color: #071a24;
+          }
+          .submit-btn {
+            text-align: center;
+            margin-top: 2rem;
+          }
+          .submit-btn > input {
+            background-color: #071a24;
+          }
+          .submit-btn > input:hover {
+            background-color: #071a24;
+            color: #f5f1d0;
+            cursor: pointer;
           }
           .link {
             text-decoration: none;

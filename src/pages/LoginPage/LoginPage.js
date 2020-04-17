@@ -8,7 +8,7 @@ const LoginPage = (props) => (
     <Link to="/" className="link light">
       <h1>G E N R E</h1>
     </Link>
-    <LoginForm />
+    <LoginForm history={props.history} updateUser={props.updateUser} />
   </>
 );
 

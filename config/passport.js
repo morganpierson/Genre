@@ -7,12 +7,15 @@ passport.use(
   new LocalStrategy(function (username, password, done) {
     User.findOne({ username: username }, function (err, user) {
       if (err) {
+        console.log("ERROR ", err);
         return done(err);
       }
       if (!user) {
+        console.log("NO USER!!");
         return done(null, false, { message: "Incorrect username." });
       }
-      if (!user.validPassword(password)) {
+      if (!user.checkPassword(password)) {
+        console.log("WRONG PASSWORD");
         return done(null, false, { message: "Incorrect password" });
       }
 

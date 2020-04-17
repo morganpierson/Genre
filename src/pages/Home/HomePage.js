@@ -24,9 +24,9 @@ const cards = [
   },
 ];
 
-const HomePage = () => (
+const HomePage = (props) => (
   <>
-    <Header />
+    <Header user={props.user} />
     <div className="featured-cards-container">
       {cards.map((card) => (
         <FeaturedCard card={card} />

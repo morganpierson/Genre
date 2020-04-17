@@ -7,7 +7,7 @@ const SignupPage = (props) => (
     <Link to="/" className="link light">
       <h1>G E N R E</h1>
     </Link>
-    <SignupForm history={props.history} />
+    <SignupForm history={props.history} updateUser={props.updateUser} />
   </>
 );
 

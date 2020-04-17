@@ -30,4 +30,19 @@ router.post("/signup", (req, res) => {
   });
 });
 
+router.post("/login", passport.authenticate("local"), (req, res) => {
+  console.log("logged in ", req.user);
+  res.send(req.user);
+});
+
+router.get("/", (req, res, next) => {
+  console.log("======== USER! =======");
+  console.log(req.user);
+  if (req.user) {
+    res.json({ user: req.user });
+  } else {
+    res.json({ user: null });
+  }
+});
+
 module.exports = router;
