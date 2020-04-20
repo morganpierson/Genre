@@ -101,7 +101,7 @@ const SignupForm = (props) => {
           <h4>Login</h4>
         </Link>
       </div>
-      <style jsx global>
+      <style jsx>
         {`
           .login-form {
             background-color: #f5f1d0;

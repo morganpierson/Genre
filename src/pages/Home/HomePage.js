@@ -26,10 +26,10 @@ const cards = [
 
 const HomePage = (props) => (
   <>
-    <Header user={props.user} />
+    <Header user={props.user} updateUser={props.updateUser} />
     <div className="featured-cards-container">
-      {cards.map((card) => (
-        <FeaturedCard card={card} />
+      {cards.map((card, idx) => (
+        <FeaturedCard card={card} key={idx} />
       ))}
     </div>
   </>

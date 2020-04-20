@@ -35,6 +35,16 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
   res.send(req.user);
 });
 
+router.post("/logout", (req, res) => {
+  if (req.user) {
+    console.log("Logout route hit!");
+    req.logout();
+    res.send({ user: req.user });
+  } else {
+    res.json({ user: null });
+  }
+});
+
 router.get("/", (req, res, next) => {
   console.log("======== USER! =======");
   console.log(req.user);

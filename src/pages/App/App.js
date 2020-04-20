@@ -1,11 +1,12 @@
 //Libraries and Modules
 import React, { useState, useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 //Components & Pages
 import axios from "axios";
 import HomePage from "../Home/HomePage";
 import LoginPage from "../LoginPage/LoginPage";
 import SignupPage from "../SignupPage/SignupPage";
+import UserAccountPage from "../UserAccountPage/UserAccountPage";
 
 const App = () => {
   const [userInfo, setUserInfo] = useState({
@@ -13,11 +14,8 @@ const App = () => {
     isLoggedIn: false,
   });
   useEffect(() => {
-    console.log("USE EFFECT CALLED");
     const fetchData = async () => {
       await axios.get("/api/users/").then((response) => {
-        console.log("GET USER RESPONSE");
-        console.log(response.data);
         if (response.data.user) {
           console.log("THERE IS A USER");
           setUserInfo({
@@ -47,7 +45,11 @@ const App = () => {
           exact
           path="/"
           render={({ history }) => (
-            <HomePage user={userInfo} history={history} />
+            <HomePage
+              user={userInfo}
+              history={history}
+              updateUser={updateUser}
+            />
           )}
         />
         <Route
@@ -63,6 +65,17 @@ const App = () => {
           render={({ history }) => (
             <SignupPage updateUser={updateUser} history={history} />
           )}
+        />
+        <Route
+          exact
+          path="/account"
+          render={({ history }) =>
+            userInfo.isLoggedIn ? (
+              <UserAccountPage user={userInfo.user} history={history} />
+            ) : (
+              <Redirect to="/" />
+            )
+          }
         />
       </Switch>
 

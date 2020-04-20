@@ -1,12 +1,40 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Header = (props) => {
   console.log("HEADER USER ", props.user);
+  const handleLogout = (e) => {
+    e.preventDefault();
+    console.log("Logging out!");
+    axios
+      .post("/api/users/logout")
+      .then((res) => {
+        console.log(res.data);
+        if (res.status === 200) {
+          props.updateUser({
+            isLoggedIn: false,
+            user: null,
+          });
+        }
+      })
+      .catch((e) => {
+        console.log("LOGOUT ERROR ", e);
+      });
+  };
   const nav = props.user.isLoggedIn ? (
-    <Link to="/account" className="link">
-      MY ACCOUNT
-    </Link>
+    <div className="logout-nav">
+      <span>
+        <Link to="/account" className="link">
+          MY ACCOUNT
+        </Link>
+      </span>
+      <span>
+        <Link to="" className="link" onClick={handleLogout}>
+          LOG OUT
+        </Link>
+      </span>
+    </div>
   ) : (
     <Link to="/login" className="link">
       LOGIN
@@ -57,6 +85,9 @@ const Header = (props) => {
           }
           input:focus {
             outline: none;
+          }
+          .logout-nav:first-child > span {
+            margin-right: 2rem;
           }
         `}
       </style>

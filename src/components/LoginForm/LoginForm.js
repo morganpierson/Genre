@@ -52,7 +52,7 @@ const LoginForm = (props) => {
       <form onSubmit={handleSubmit}>
         <h1 className="dark">Login</h1>
         <div>
-          <h3 className="dark">username</h3>
+          <h3 className="dark">Username:</h3>
           <input
             type="text"
             name="username"
@@ -85,7 +85,7 @@ const LoginForm = (props) => {
           <h4>Signup</h4>
         </Link>
       </div>
-      <style jsx global>
+      <style jsx>
         {`
           .login-form {
             background-color: #f5f1d0;
